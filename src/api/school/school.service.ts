@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common"
+import AdminRepository from "../../common/database/ddb/admin/admin.repo"
 
 @Injectable()
 export class SchoolService {
@@ -10,7 +11,9 @@ export class SchoolService {
     return "학교 구독 생성"
   }
   async getSchoolSubscrib() {
-    return "학교 구독 전달"
+    const adminRepository = new AdminRepository()
+    await adminRepository.createAdminById("admin2")
+    return await adminRepository.getAdminById("admin2")
   }
   async deleteSchoolSubscrib() {
     return "학교 구독 삭제"
