@@ -1,9 +1,5 @@
 import { Controller, Delete, Get, Patch, Post } from "@nestjs/common"
-import {
-  ApiCreatedResponse,
-  ApiOperation,
-  ApiTags,
-} from "@nestjs/swagger"
+import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
 import { SchoolService } from "./school.service"
 
 @ApiTags("school 관련 API")
@@ -62,5 +58,4 @@ export class SchoolController {
   async getSchoolSubscribNews() {
     return await this.School.getSchoolSubscribNews()
   }
-
 }

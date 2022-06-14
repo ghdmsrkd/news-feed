@@ -15,5 +15,4 @@ export class SchoolService {
   async deleteSchoolSubscrib() {
     return "학교 구독 삭제"
   }
-
 }
