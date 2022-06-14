@@ -22,6 +22,7 @@ async function bootstrapServer(): Promise<Server> {
       new ExpressAdapter(expressApp),
     )
     nestApp.use(eventContext())
+    nestApp.setGlobalPrefix("api")
     setupSwagger(nestApp)
     await nestApp.init()
     cachedServer = createServer(expressApp, undefined, binaryMimeTypes)
