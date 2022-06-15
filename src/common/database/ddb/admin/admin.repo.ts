@@ -2,7 +2,9 @@ import * as dynamoose from "dynamoose"
 import { AdminModel } from "./admin.model"
 import { Model } from "dynamoose/dist/Model"
 import { AdminSchema } from "./admin.schema"
+import { Injectable } from "@nestjs/common"
 
+@Injectable()
 export default class AdminRepository {
   private dbInstance: Model<AdminModel>
 
