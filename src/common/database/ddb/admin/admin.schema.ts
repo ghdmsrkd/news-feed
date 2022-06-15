@@ -10,8 +10,8 @@ export const AdminSchema = new dynamoose.Schema({
     hashKey: true,
     required: true,
   },
-  admin_info: {
-    type: Object,
-    required: false
+  admin_name: {
+    type: String,
+    required: true
   },
 })
