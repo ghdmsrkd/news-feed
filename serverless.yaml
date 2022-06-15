@@ -1,5 +1,4 @@
-service:
-  name: news-feed
+service: news-feed
 
 plugins:
   - serverless-plugin-typescript
