@@ -12,7 +12,10 @@ export default class AdminRepository {
   }
 
   createAdminById = async (id: string) => {
-    return await this.dbInstance.create({ admin_id: id, admin_name: id+"name"})
+    return await this.dbInstance.create({
+      admin_id: id,
+      admin_name: id + "name",
+    })
   }
 
   getAdminById = async (id: string) => {

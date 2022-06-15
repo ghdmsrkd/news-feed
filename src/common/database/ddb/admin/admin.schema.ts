@@ -8,6 +8,6 @@ export const AdminSchema = new dynamoose.Schema({
   },
   admin_name: {
     type: String,
-    required: true
+    required: true,
   },
 })
