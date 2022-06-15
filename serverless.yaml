@@ -3,6 +3,7 @@ service:
 
 plugins:
   - serverless-plugin-typescript
+  - serverless-dotenv-plugin
   - serverless-plugin-optimize
   - serverless-offline
 
