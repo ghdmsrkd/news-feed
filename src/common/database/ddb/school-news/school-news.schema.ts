@@ -6,17 +6,16 @@ export const SchoolNewsSchema = new dynamoose.Schema({
     hashKey: true,
     required: true,
   },
-  created_at: {
-    type: Number,
-    rangeKey: true,
-    required: true,
-  },
   school_code: {
     type: String,
     index: {
       name: "school_code-created_at-index",
       global: true,
     },
+  },
+  created_at: {
+    type: Number,
+    required: true,
   },
   title: {
     type: String,
