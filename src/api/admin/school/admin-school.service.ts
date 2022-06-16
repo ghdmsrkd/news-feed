@@ -23,8 +23,8 @@ export class AdminSchoolService {
     return createSchoolNewsResult
   }
 
-  async deleteSchoolNews() {
-    return "학교 뉴스 삭제"
+  async deleteSchoolNews(school_news_id: string) {
+    return this.schoolNewsRepository.deleteOneSchoolNews(school_news_id)
   }
 
   async updateSchoolNews() {

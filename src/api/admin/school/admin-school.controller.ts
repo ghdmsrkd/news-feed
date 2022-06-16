@@ -1,7 +1,14 @@
 import { Body, Controller, Delete, Patch, Post } from "@nestjs/common"
 import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
 import { AdminSchoolService } from "./admin-school.service"
-import { PostAdminSchoolNewsBody } from "./dto/post-admin-school-news.dto"
+import {
+  DeleteAdminSchoolNewsBody,
+  DeleteAdminSchoolNewsResponse,
+} from "./dto/delete-admin-school-news.dto"
+import {
+  PostAdminSchoolNewsBody,
+  PostAdminSchoolNewsResponse,
+} from "./dto/post-admin-school-news.dto"
 import {
   PostAdminSchoolBody,
   PostAdminSchoolResponse,
@@ -37,7 +44,7 @@ export class AdminSchoolController {
   })
   @ApiCreatedResponse({
     description: "완료",
-    type: null,
+    type: PostAdminSchoolNewsResponse,
   })
   @Post("news")
   async postAdminSchoolNews(@Body() body: PostAdminSchoolNewsBody) {
@@ -54,11 +61,11 @@ export class AdminSchoolController {
   })
   @ApiCreatedResponse({
     description: "완료",
-    type: null,
+    type: DeleteAdminSchoolNewsResponse,
   })
   @Delete("news")
-  async deleteAdminSchoolNews() {
-    return await this.adminSchool.deleteSchoolNews()
+  async deleteAdminSchoolNews(@Body() body: DeleteAdminSchoolNewsBody) {
+    return await this.adminSchool.deleteSchoolNews(body.school_news_id)
   }
 
   @ApiOperation({

@@ -33,6 +33,21 @@ export default class SchoolNewsRepository {
     })
   }
 
+  async deleteOneSchoolNews(id: string) {
+    const deletedShcoolNews = await this.getSchoolNewsById(id)
+    await this.dbInstance.delete({
+      school_news_id: id,
+    })
+    return deletedShcoolNews
+  }
+
+  async updateOneSchoolNews(id: string) {
+    const updatedSchoolNews = this.dbInstance.update({
+      school_news_id: id,
+    })
+    return
+  }
+
   async getSchoolNewsById(id: string) {
     return await this.dbInstance.get({ school_news_id: id })
   }
