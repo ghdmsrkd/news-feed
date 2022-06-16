@@ -1,6 +1,10 @@
-import { Controller, Delete, Patch, Post } from "@nestjs/common"
+import { Body, Controller, Delete, Patch, Post } from "@nestjs/common"
 import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
 import { AdminSchoolService } from "./admin-school.service"
+import {
+  PostAdminSchoolBody,
+  PostAdminSchoolBodyResponse,
+} from "./dto/post-admin-school.dto"
 
 @ApiTags("admin/school 관련 API")
 @Controller("admin/school")
@@ -14,11 +18,15 @@ export class AdminSchoolController {
   })
   @ApiCreatedResponse({
     description: "완료",
-    type: null,
+    type: PostAdminSchoolBodyResponse,
   })
   @Post("")
-  async postAdminSchool() {
-    return await this.adminSchool.createSchool()
+  async postAdminSchool(@Body() body: PostAdminSchoolBody) {
+    return await this.adminSchool.createSchool(
+      body.admin_id,
+      body.location,
+      body.name,
+    )
   }
 
   @ApiOperation({

@@ -22,9 +22,14 @@ export class AdminSchoolService {
     return "학교 뉴스 수정"
   }
 
-  async createSchool() {
+  async createSchool(admin_id: string, location: string, name: string) {
     // await this.adminRepository.createAdminById("admin6")
-    await this.schoolRepository.createSchool("admin4", "인천", "인천중학교")
+    const createSchoolResult = await this.schoolRepository.createSchool(
+      admin_id,
+      location,
+      name,
+    )
+    console.log(createSchoolResult)
     return await this.schoolRepository.getSchoolByCode("인천-인천중학교")
   }
 }
