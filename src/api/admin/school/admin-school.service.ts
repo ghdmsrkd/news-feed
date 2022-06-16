@@ -2,7 +2,9 @@
 import { Injectable } from "@nestjs/common"
 import SchoolRepository from "../../../common/database/ddb/school/school.repo"
 import AdminRepository from "../../../common/database/ddb/admin/admin.repo"
-import SchoolNewsRepository from "../../../common/database/ddb/school-news/school-news.repo"
+import SchoolNewsRepository, {
+  TUpdateOption,
+} from "../../../common/database/ddb/school-news/school-news.repo"
 
 @Injectable()
 export class AdminSchoolService {
@@ -27,8 +29,8 @@ export class AdminSchoolService {
     return this.schoolNewsRepository.deleteOneSchoolNews(school_news_id)
   }
 
-  async updateSchoolNews() {
-    return "학교 뉴스 수정"
+  async updateSchoolNews(id: string, option: TUpdateOption) {
+    return this.schoolNewsRepository.updateOneSchoolNews(id, option)
   }
 
   // 하나의 학교 페이지를 생성합니다.

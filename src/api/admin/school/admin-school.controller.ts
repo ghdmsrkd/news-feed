@@ -5,6 +5,7 @@ import {
   DeleteAdminSchoolNewsBody,
   DeleteAdminSchoolNewsResponse,
 } from "./dto/delete-admin-school-news.dto"
+import { PatchAdminSchoolNewsBody } from "./dto/patch-admin-school-news.dto"
 import {
   PostAdminSchoolNewsBody,
   PostAdminSchoolNewsResponse,
@@ -78,7 +79,10 @@ export class AdminSchoolController {
     type: null,
   })
   @Patch("news")
-  async patchAdminSchoolNews() {
-    return await this.adminSchool.updateSchoolNews()
+  async patchAdminSchoolNews(@Body() body: PatchAdminSchoolNewsBody) {
+    return await this.adminSchool.updateSchoolNews(body.school_news_id, {
+      title: body.title,
+      context: body.context,
+    })
   }
 }

@@ -5,6 +5,10 @@ import { SchoolNewsSchema } from "./school-news.schema"
 import { Injectable } from "@nestjs/common"
 import { v4 as uuidv4 } from "uuid"
 
+export type TUpdateOption = {
+  title?: string
+  context?: string
+}
 @Injectable()
 export default class SchoolNewsRepository {
   private dbInstance: Model<SchoolNewsModel>
@@ -41,11 +45,23 @@ export default class SchoolNewsRepository {
     return deletedShcoolNews
   }
 
-  async updateOneSchoolNews(id: string) {
-    const updatedSchoolNews = this.dbInstance.update({
-      school_news_id: id,
-    })
-    return
+  async updateOneSchoolNews(id: string, option: TUpdateOption) {
+    const curentSchoolNews = await this.getSchoolNewsById(id)
+
+    //update의 set 기능이 작동을 안해서 임시 적으로 수동 검증 해준다.
+    const updateParm = {
+      title: option.title ?? curentSchoolNews.title,
+      context: option.context ?? curentSchoolNews.context,
+    }
+    const updatedSchoolNews = this.dbInstance.update(
+      {
+        school_news_id: id,
+      },
+      {
+        ...updateParm,
+      },
+    )
+    return updatedSchoolNews
   }
 
   async getSchoolNewsById(id: string) {
