@@ -1,13 +1,14 @@
 import { Injectable } from "@nestjs/common"
+import StudentRepository from "../../common/database/ddb/student/student.repo"
 
 @Injectable()
 export class SchoolService {
-  constructor() {}
+  constructor(private readonly studentRepository: StudentRepository) {}
   async getSchoolSubscribNews() {
     return "학교 구독 뉴스 전달"
   }
   async createSchoolSubscrib() {
-    return "학교 구독 생성"
+    return await this.studentRepository.createStudentById("student2")
   }
   async getSchoolSubscrib() {
     return "학교 구독 전달"
