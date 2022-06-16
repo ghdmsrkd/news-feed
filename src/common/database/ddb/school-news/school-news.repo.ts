@@ -17,7 +17,11 @@ export default class SchoolNewsRepository {
     )
   }
 
-  async createSchoolNews(school_code: string, title: string, context: string) {
+  async createOneSchoolNews(
+    school_code: string,
+    title: string,
+    context: string,
+  ) {
     const newsHashId = uuidv4()
     const nowToNumber = +new Date()
     return await this.dbInstance.create({

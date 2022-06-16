@@ -14,7 +14,7 @@ export class AdminSchoolService {
 
   async createSchoolNews(school_code: string, title: string, context: string) {
     const createSchoolNewsResult =
-      await this.schoolNewsRepository.createSchoolNews(
+      await this.schoolNewsRepository.createOneSchoolNews(
         school_code,
         title,
         context,
@@ -33,7 +33,7 @@ export class AdminSchoolService {
 
   // 하나의 학교 페이지를 생성합니다.
   async createSchool(admin_id: string, location: string, name: string) {
-    const createSchoolResult = await this.schoolRepository.createSchool(
+    const createSchoolResult = await this.schoolRepository.createOneSchool(
       admin_id,
       location,
       name,

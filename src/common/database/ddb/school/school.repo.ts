@@ -13,7 +13,7 @@ export default class SchoolRepository {
     this.dbInstance = dynamoose.model<SchoolModel>(tableName, SchoolSchema)
   }
 
-  async createSchool(admin_id: string, location: string, name: string) {
+  async createOneSchool(admin_id: string, location: string, name: string) {
     return await this.dbInstance.create({
       school_code: `${location}-${name}`,
       admin_id: admin_id,
