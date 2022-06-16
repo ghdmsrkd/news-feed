@@ -1,5 +1,14 @@
-import { Body, Controller, Delete, Patch, Post } from "@nestjs/common"
+import {
+  Body,
+  Controller,
+  Delete,
+  Patch,
+  Post,
+  UseGuards,
+} from "@nestjs/common"
 import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
+import { AdminGuard } from "../../../common/nest/guard/\badmin.guard"
+
 import { AdminSchoolService } from "./admin-school.service"
 import {
   DeleteAdminSchoolNewsBody,
@@ -15,6 +24,7 @@ import {
   PostAdminSchoolResponse,
 } from "./dto/post-admin-school.dto"
 
+@UseGuards(AdminGuard)
 @ApiTags("admin/school 관련 API")
 @Controller("admin/school")
 export class AdminSchoolController {
