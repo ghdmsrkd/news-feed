@@ -9,6 +9,7 @@ import { AppModule } from "./app.module"
 
 import express = require("express")
 import { setupSwagger } from "./common/nest/swagger"
+import { ValidationPipe } from "@nestjs/common"
 
 const binaryMimeTypes: string[] = []
 
@@ -22,6 +23,13 @@ async function bootstrapServer(): Promise<Server> {
       new ExpressAdapter(expressApp),
     )
     nestApp.use(eventContext())
+    nestApp.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true,
+      }),
+    )
     nestApp.setGlobalPrefix("api")
     setupSwagger(nestApp)
     await nestApp.init()
