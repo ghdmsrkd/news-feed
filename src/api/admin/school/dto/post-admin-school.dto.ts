@@ -21,7 +21,7 @@ export class PostAdminSchoolBody {
   name: string
 }
 
-export class PostAdminSchoolBodyResponse {
+export class PostAdminSchoolResponse {
   @ApiProperty({
     example: {},
   })

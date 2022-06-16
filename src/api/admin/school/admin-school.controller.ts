@@ -3,7 +3,7 @@ import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
 import { AdminSchoolService } from "./admin-school.service"
 import {
   PostAdminSchoolBody,
-  PostAdminSchoolBodyResponse,
+  PostAdminSchoolResponse,
 } from "./dto/post-admin-school.dto"
 
 @ApiTags("admin/school 관련 API")
@@ -18,7 +18,7 @@ export class AdminSchoolController {
   })
   @ApiCreatedResponse({
     description: "완료",
-    type: PostAdminSchoolBodyResponse,
+    type: PostAdminSchoolResponse,
   })
   @Post("")
   async postAdminSchool(@Body() body: PostAdminSchoolBody) {
