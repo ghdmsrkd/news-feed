@@ -2,16 +2,25 @@
 import { Injectable } from "@nestjs/common"
 import SchoolRepository from "../../../common/database/ddb/school/school.repo"
 import AdminRepository from "../../../common/database/ddb/admin/admin.repo"
+import SchoolNewsRepository from "../../../common/database/ddb/school-news/school-news.repo"
 
 @Injectable()
 export class AdminSchoolService {
   constructor(
     private readonly adminRepository: AdminRepository,
     private readonly schoolRepository: SchoolRepository,
+    private readonly schoolNewsRepository: SchoolNewsRepository,
   ) {}
 
-  async createSchoolNews() {
-    return await this.schoolRepository.querySchoolByAdminId("admin4")
+  async createSchoolNews(school_code: string, title: string, context: string) {
+    const createSchoolNewsResult =
+      await this.schoolNewsRepository.createSchoolNews(
+        school_code,
+        title,
+        context,
+      )
+    console.log(createSchoolNewsResult)
+    return createSchoolNewsResult
   }
 
   async deleteSchoolNews() {
@@ -22,14 +31,13 @@ export class AdminSchoolService {
     return "학교 뉴스 수정"
   }
 
+  // 하나의 학교 페이지를 생성합니다.
   async createSchool(admin_id: string, location: string, name: string) {
-    // await this.adminRepository.createAdminById("admin6")
     const createSchoolResult = await this.schoolRepository.createSchool(
       admin_id,
       location,
       name,
     )
-    console.log(createSchoolResult)
-    return await this.schoolRepository.getSchoolByCode("인천-인천중학교")
+    return createSchoolResult
   }
 }

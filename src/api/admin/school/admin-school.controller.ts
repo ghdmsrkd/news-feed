@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Patch, Post } from "@nestjs/common"
 import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
 import { AdminSchoolService } from "./admin-school.service"
+import { PostAdminSchoolNewsBody } from "./dto/post-admin-school-news.dto"
 import {
   PostAdminSchoolBody,
   PostAdminSchoolResponse,
@@ -39,8 +40,12 @@ export class AdminSchoolController {
     type: null,
   })
   @Post("news")
-  async postAdminSchoolNews() {
-    return await this.adminSchool.createSchoolNews()
+  async postAdminSchoolNews(@Body() body: PostAdminSchoolNewsBody) {
+    return await this.adminSchool.createSchoolNews(
+      body.school_code,
+      body.title,
+      body.context,
+    )
   }
 
   @ApiOperation({
