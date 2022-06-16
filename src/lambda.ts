@@ -10,6 +10,8 @@ import { AppModule } from "./app.module"
 import express = require("express")
 import { setupSwagger } from "./common/nest/swagger"
 import { ValidationPipe } from "@nestjs/common"
+import { GlobalExceptionsFilter } from "./common/nest/filter/global-exception-filter"
+import { GlobalResponseInterceptor } from "./common/nest/interceptor/global-response-interceptor"
 
 const binaryMimeTypes: string[] = []
 
@@ -23,6 +25,8 @@ async function bootstrapServer(): Promise<Server> {
       new ExpressAdapter(expressApp),
     )
     nestApp.use(eventContext())
+    nestApp.useGlobalFilters(new GlobalExceptionsFilter())
+    nestApp.useGlobalInterceptors(new GlobalResponseInterceptor())
     nestApp.useGlobalPipes(
       new ValidationPipe({
         whitelist: true,
