@@ -8,7 +8,10 @@ export const SchoolSchema = new dynamoose.Schema({
   },
   admin_id: {
     type: String,
-    required: true,
+    index: {
+      name: "admin_id-index",
+      global: true,
+    },
   },
   location: {
     type: String,

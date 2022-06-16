@@ -11,7 +11,7 @@ export class AdminSchoolService {
   ) {}
 
   async createSchoolNews() {
-    return await this.schoolRepository.querySchoolByAdminId("admin1")
+    return await this.schoolRepository.querySchoolByAdminId("admin4")
   }
 
   async deleteSchoolNews() {
@@ -23,8 +23,8 @@ export class AdminSchoolService {
   }
 
   async createSchool() {
-    await this.adminRepository.createAdminById("admin6")
-    await this.schoolRepository.createSchool("admin4", "인천", "인천초등학교")
-    return await this.schoolRepository.getSchoolByCode("인천-인천초등학교")
+    // await this.adminRepository.createAdminById("admin6")
+    await this.schoolRepository.createSchool("admin4", "인천", "인천중학교")
+    return await this.schoolRepository.getSchoolByCode("인천-인천중학교")
   }
 }
