@@ -45,6 +45,7 @@ export const handler: Handler = async (event: any, context: Context) => {
   event.path = event.path.includes("swagger-ui")
     ? `/api${event.path}`
     : event.path
+  console.log(`Method : ${event.method} > Path: ${event.path}`)
   cachedServer = await bootstrapServer()
   return proxy(cachedServer, event, context, "PROMISE").promise
 }
