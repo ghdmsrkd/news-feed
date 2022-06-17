@@ -22,6 +22,6 @@ export class StudentGuard implements CanActivate {
       student: { ...studentModel },
     }
     console.log(request.payload.student)
-    return token === studentModel.student_id ? true : false
+    return token === studentModel?.student_id ? true : false
   }
 }

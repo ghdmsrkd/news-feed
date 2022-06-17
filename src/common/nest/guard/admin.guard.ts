@@ -21,6 +21,6 @@ export class AdminGuard implements CanActivate {
       admin: { ...adminModel },
     }
     console.log(request.payload.admin)
-    return token === adminModel.admin_id ? true : false
+    return token === adminModel?.admin_id ? true : false
   }
 }
