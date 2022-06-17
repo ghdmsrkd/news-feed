@@ -23,7 +23,16 @@ export class PostAdminSchoolBody {
 
 export class PostAdminSchoolResponse {
   @ApiProperty({
-    example: {},
+    example: `{
+      "status": 200,
+      "timestamp": "2022-06-17T08:55:04.928Z",
+      "result": {
+          "school_code": "서울-서울초등학교",
+          "admin_id": "admin4",
+          "location": "서울",
+          "name": "서울초등학교"
+      }
+  }`,
   })
   result
 }

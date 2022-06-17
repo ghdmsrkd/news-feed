@@ -17,7 +17,7 @@ export class GlobalResponseInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((data) => {
         return {
-          status: HttpStatus.ACCEPTED,
+          status: HttpStatus.OK,
           timestamp: date.toISOString(),
           result: data,
         }

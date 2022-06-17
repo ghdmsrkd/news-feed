@@ -6,7 +6,7 @@ import {
   Post,
   UseGuards,
 } from "@nestjs/common"
-import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
+import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
 import { AdminGuard } from "../../../common/nest/guard/admin.guard"
 
 import { AdminSchoolService } from "./admin-school.service"
@@ -38,7 +38,7 @@ export class AdminSchoolController {
     description:
       "관리자가 지역과, 학교명을 받아 하나의 학교 페이지 생성합니다.",
   })
-  @ApiCreatedResponse({
+  @ApiOkResponse({
     description: "완료",
     type: PostAdminSchoolResponse,
   })
@@ -56,7 +56,7 @@ export class AdminSchoolController {
     description:
       "관리자가 학교 code와 소식 정보를 받아 하나의 학교 소식을 생성합니다.",
   })
-  @ApiCreatedResponse({
+  @ApiOkResponse({
     description: "완료",
     type: PostAdminSchoolNewsResponse,
   })
@@ -73,7 +73,7 @@ export class AdminSchoolController {
     summary: "관리자가 하나의 학교 소식을 삭제",
     description: "관리자가 소식 id를 받아 하나의 학교 소식을 삭제합니다.",
   })
-  @ApiCreatedResponse({
+  @ApiOkResponse({
     description: "완료",
     type: DeleteAdminSchoolNewsResponse,
   })
@@ -87,7 +87,7 @@ export class AdminSchoolController {
     description:
       "관리자가 소식 id, 수정 내용을 받아 하나의 학교 소식을 수정합니다.",
   })
-  @ApiCreatedResponse({
+  @ApiOkResponse({
     description: "완료",
     type: PatchAdminSchoolNewsResponse,
   })
