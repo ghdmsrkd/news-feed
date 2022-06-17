@@ -9,8 +9,10 @@ export class SchoolService {
     private readonly subscribeRepository: SubscribeRepository,
   ) {}
 
-  async getSchoolSubscribeNews() {
-    return "학교 구독 뉴스 전달"
+  async getSchoolSubscribe(student_id: string) {
+    const subscribedSchoolIds =
+      await this.subscribeRepository.querySubscribeByStudentId(student_id)
+    return subscribedSchoolIds
   }
 
   async createSchoolSubscribe(school_code: string, student_id: string) {
@@ -20,7 +22,7 @@ export class SchoolService {
     )
   }
 
-  async getSchoolSubscribe() {
+  async getSchoolSubscribeNews() {
     return "학교 구독 전달"
   }
 
