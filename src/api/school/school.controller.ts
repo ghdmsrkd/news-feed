@@ -1,11 +1,21 @@
-import { Body, Controller, Delete, Get, Patch, Post } from "@nestjs/common"
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Patch,
+  Post,
+  UseGuards,
+} from "@nestjs/common"
 import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
+import { StudentGuard } from "../../common/nest/guard/student.guard"
 import {
   PostSchoolSubscribeBody,
   PostSchoolSubscribeResponse,
 } from "./dto/post-school-subscribe.dto"
 import { SchoolService } from "./school.service"
 
+@UseGuards(StudentGuard)
 @ApiTags("school 관련 API")
 @Controller("school")
 export class SchoolController {
