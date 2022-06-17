@@ -8,7 +8,7 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs16.x
   region: ap-northeast-2
   stage: dev
   profile: classting-iam
