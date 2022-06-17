@@ -8,19 +8,23 @@ export class SchoolService {
     private readonly studentRepository: StudentRepository,
     private readonly subscribeRepository: SubscribeRepository,
   ) {}
-  async getSchoolSubscribNews() {
+
+  async getSchoolSubscribeNews() {
     return "학교 구독 뉴스 전달"
   }
-  async createSchoolSubscrib(school_code: string, student_id: string) {
+
+  async createSchoolSubscribe(school_code: string, student_id: string) {
     return await this.subscribeRepository.createOneSubscribe(
       school_code,
       student_id,
     )
   }
-  async getSchoolSubscrib() {
+
+  async getSchoolSubscribe() {
     return "학교 구독 전달"
   }
-  async deleteSchoolSubscrib() {
-    return "학교 구독 삭제"
+
+  async deleteSchoolSubscribe(subscribe_id: string) {
+    return this.subscribeRepository.deleteOneSubscribe(subscribe_id)
   }
 }

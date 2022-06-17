@@ -16,6 +16,10 @@ import {
   PostSchoolSubscribeResponse,
 } from "./dto/post-school-subscribe.dto"
 import { SchoolService } from "./school.service"
+import {
+  DeleteSchoolSubscribeBody,
+  DeleteSchoolSubscribeResponse,
+} from "./dto/delete-school-subscribe.dto"
 
 @UseGuards(StudentGuard)
 @ApiTags("school 관련 API")
@@ -36,7 +40,7 @@ export class SchoolController {
     @Student() student: TStudnetPayload,
     @Body() body: PostSchoolSubscribeBody,
   ) {
-    return await this.School.createSchoolSubscrib(
+    return await this.School.createSchoolSubscribe(
       body.school_code,
       student.student_id,
     )
@@ -51,8 +55,8 @@ export class SchoolController {
     type: null,
   })
   @Get("subscribe")
-  async getSchoolSubscrib() {
-    return await this.School.getSchoolSubscrib()
+  async getSchoolSubscribe() {
+    return await this.School.getSchoolSubscribe()
   }
 
   @ApiOperation({
@@ -61,11 +65,11 @@ export class SchoolController {
   })
   @ApiCreatedResponse({
     description: "완료",
-    type: null,
+    type: DeleteSchoolSubscribeResponse,
   })
   @Delete("subscribe")
-  async deleteSchoolSubscrib() {
-    return await this.School.deleteSchoolSubscrib()
+  async deleteSchoolSubscribe(@Body() body: DeleteSchoolSubscribeBody) {
+    return await this.School.deleteSchoolSubscribe(body.subscribe_id)
   }
 
   @ApiOperation({
@@ -77,7 +81,7 @@ export class SchoolController {
     type: null,
   })
   @Get("subscribe/news")
-  async getSchoolSubscribNews() {
-    return await this.School.getSchoolSubscribNews()
+  async getSchoolSubscribeNews() {
+    return await this.School.getSchoolSubscribeNews()
   }
 }

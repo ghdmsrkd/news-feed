@@ -33,13 +33,13 @@ export default class SubscribeRepository {
   async deleteOneSubscribe(id: string) {
     const deletedShcoolNews = await this.getSubscribeById(id)
     await this.dbInstance.delete({
-      school_news_id: id,
+      subscribe_id: id,
     })
     return deletedShcoolNews
   }
 
   async getSubscribeById(id: string) {
-    return await this.dbInstance.get({ school_news_id: id })
+    return await this.dbInstance.get({ subscribe_id: id })
   }
 
   async querySubscribeByStudentId(student_id: string) {
