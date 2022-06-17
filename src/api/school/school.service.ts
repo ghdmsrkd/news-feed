@@ -11,8 +11,11 @@ export class SchoolService {
   async getSchoolSubscribNews() {
     return "학교 구독 뉴스 전달"
   }
-  async createSchoolSubscrib() {
-    return await this.studentRepository.createStudentById("student2")
+  async createSchoolSubscrib(school_code: string, student_id: string) {
+    return await this.subscribeRepository.createOneSubscribe(
+      school_code,
+      student_id,
+    )
   }
   async getSchoolSubscrib() {
     return "학교 구독 전달"

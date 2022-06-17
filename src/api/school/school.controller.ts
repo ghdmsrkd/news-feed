@@ -1,5 +1,9 @@
-import { Controller, Delete, Get, Patch, Post } from "@nestjs/common"
+import { Body, Controller, Delete, Get, Patch, Post } from "@nestjs/common"
 import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
+import {
+  PostSchoolSubscribeBody,
+  PostSchoolSubscribeResponse,
+} from "./dto/post-school-subscribe.dto"
 import { SchoolService } from "./school.service"
 
 @ApiTags("school 관련 API")
@@ -13,11 +17,11 @@ export class SchoolController {
   })
   @ApiCreatedResponse({
     description: "완료",
-    type: null,
+    type: PostSchoolSubscribeResponse,
   })
   @Post("subscribe")
-  async postSchoolSubscrib() {
-    return await this.School.createSchoolSubscrib()
+  async postSchoolSubscrib(student_id, @Body() body: PostSchoolSubscribeBody) {
+    return await this.School.createSchoolSubscrib(body.school_code, student_id)
   }
 
   @ApiOperation({
