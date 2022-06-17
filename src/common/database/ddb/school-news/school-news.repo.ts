@@ -69,6 +69,10 @@ export default class SchoolNewsRepository {
   }
 
   async querySchoolNewsBySchoolCode(school_code: string) {
-    return await this.dbInstance.query("school_code").eq(school_code).exec()
+    return await this.dbInstance
+      .query("school_code")
+      .eq(school_code)
+      .sort("descending")
+      .exec()
   }
 }
