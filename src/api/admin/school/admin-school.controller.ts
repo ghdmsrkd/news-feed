@@ -14,7 +14,10 @@ import {
   DeleteAdminSchoolNewsBody,
   DeleteAdminSchoolNewsResponse,
 } from "./dto/delete-admin-school-news.dto"
-import { PatchAdminSchoolNewsBody, PatchAdminSchoolNewsResponse } from "./dto/patch-admin-school-news.dto"
+import {
+  PatchAdminSchoolNewsBody,
+  PatchAdminSchoolNewsResponse,
+} from "./dto/patch-admin-school-news.dto"
 import {
   PostAdminSchoolNewsBody,
   PostAdminSchoolNewsResponse,
