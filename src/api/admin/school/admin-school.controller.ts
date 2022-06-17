@@ -14,7 +14,7 @@ import {
   DeleteAdminSchoolNewsBody,
   DeleteAdminSchoolNewsResponse,
 } from "./dto/delete-admin-school-news.dto"
-import { PatchAdminSchoolNewsBody } from "./dto/patch-admin-school-news.dto"
+import { PatchAdminSchoolNewsBody, PatchAdminSchoolNewsResponse } from "./dto/patch-admin-school-news.dto"
 import {
   PostAdminSchoolNewsBody,
   PostAdminSchoolNewsResponse,
@@ -86,7 +86,7 @@ export class AdminSchoolController {
   })
   @ApiCreatedResponse({
     description: "완료",
-    type: null,
+    type: PatchAdminSchoolNewsResponse,
   })
   @Patch("news")
   async patchAdminSchoolNews(@Body() body: PatchAdminSchoolNewsBody) {
