@@ -22,6 +22,7 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR
 
+    console.error(error)
     try {
       response.status(status).json({
         result: false,
