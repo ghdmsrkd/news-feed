@@ -10,7 +10,7 @@ export default class SubscribeRepository {
   private dbInstance: Model<SubscribeModel>
 
   constructor() {
-    const tableName = "CLASSTING_SCHOOL_NEWS"
+    const tableName = "CLASSTING_SUBSCRIBE"
     this.dbInstance = dynamoose.model<SubscribeModel>(
       tableName,
       SubscribeSchema,
