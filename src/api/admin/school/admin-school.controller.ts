@@ -7,7 +7,7 @@ import {
   UseGuards,
 } from "@nestjs/common"
 import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
-import { AdminGuard } from "../../../common/nest/guard/\badmin.guard"
+import { AdminGuard } from "../../../common/nest/guard/admin.guard"
 
 import { AdminSchoolService } from "./admin-school.service"
 import {

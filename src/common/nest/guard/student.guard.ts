@@ -16,9 +16,11 @@ export class StudentGuard implements CanActivate {
     const request = ctx.switchToHttp().getRequest()
 
     // jwt 토큰을 발급 하진 않았지만 student_id를 jwt 토큰이라고 가정하고 인증 과정을 거친다.
-    const token = request.headers.authorization?.split("Bearer ")[1]
-    const studentModel = await this.studentRepository.getStudentById("student2")
-    request.payload.student = { ...studentModel }
+    const token: string = request.headers.authorization?.split("Bearer ")[1]
+    const studentModel = await this.studentRepository.getStudentById(token)
+    request.payload = {
+      student: { ...studentModel },
+    }
     console.log(request.payload.student)
     return token === studentModel.student_id ? true : false
   }
