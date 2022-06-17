@@ -3,7 +3,7 @@ import { SubscribeModel } from "./subscribe.model"
 import { Model } from "dynamoose/dist/Model"
 import { SubscribeSchema } from "./subscribe.schema"
 import { Injectable } from "@nestjs/common"
-import { v4 as uuidv4 } from "uuid"
+import * as crypto from "crypto"
 
 @Injectable()
 export default class SubscribeRepository {
@@ -18,7 +18,11 @@ export default class SubscribeRepository {
   }
 
   async createOneSubscribe(school_code: string, studnet_id: string) {
-    const newsHashId = uuidv4()
+    // id가 랜덤으로 들오가져 중복된 구독 내용이 들어감, studnet_id + school_code를 해시 한 값을 id 로 사용
+    const newsHashId = crypto
+      .createHash("sha256")
+      .update(studnet_id + school_code)
+      .digest("base64")
     return await this.dbInstance.create({
       subscribe_id: newsHashId,
       school_code: school_code,
