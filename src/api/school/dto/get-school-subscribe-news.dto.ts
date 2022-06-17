@@ -11,10 +11,7 @@ export class GetSchoolSubscribeNewsQuery {
 
 export class GetSchoolSubscribeNewsResponse {
   @ApiProperty({
-    example: `{
-      "status": 200,
-      "timestamp": "2022-06-17T09:19:40.369Z",
-      "result": [
+    example: `[
           {
               "school_news_id": "65ebdb6d-624a-4885-883f-d9e91d91da46",
               "school_code": "서울-서울초등학교",
@@ -29,8 +26,7 @@ export class GetSchoolSubscribeNewsResponse {
               "context": "서울초등학교context1의 내용이 변경되었어요!",
               "title": "서울초등학교title1"
           }
-      ]
-  }`,
+    ]`,
   })
   result
 }
