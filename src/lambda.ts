@@ -5,13 +5,13 @@ import { eventContext } from "aws-serverless-express/middleware"
 
 import { NestFactory } from "@nestjs/core"
 import { ExpressAdapter } from "@nestjs/platform-express"
-import { AppModule } from "../api/app.module"
+import { AppModule } from "./api/app.module"
 
 import express = require("express")
-import { setupSwagger } from "../common/nest/swagger"
+import { setupSwagger } from "./common/nest/swagger"
 import { ValidationPipe } from "@nestjs/common"
-import { GlobalExceptionsFilter } from "../common/nest/filter/global-exception-filter"
-import { GlobalResponseInterceptor } from "../common/nest/interceptor/global-response-interceptor"
+import { GlobalExceptionsFilter } from "./common/nest/filter/global-exception-filter"
+import { GlobalResponseInterceptor } from "./common/nest/interceptor/global-response-interceptor"
 
 const binaryMimeTypes: string[] = []
 
