@@ -5,6 +5,7 @@ import {
   Get,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from "@nestjs/common"
 import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
@@ -21,6 +22,10 @@ import {
   DeleteSchoolSubscribeResponse,
 } from "./dto/delete-school-subscribe.dto"
 import { GetSchoolSubscribeResponse } from "./dto/get-school-subscribe.dto"
+import {
+  GetSchoolSubscribeNewsQuery,
+  GetSchoolSubscribeNewsResponse,
+} from "./dto/get-school-subscribe-news.dto"
 
 @UseGuards(StudentGuard)
 @ApiTags("school 관련 API")
@@ -79,10 +84,10 @@ export class SchoolController {
   })
   @ApiCreatedResponse({
     description: "완료",
-    type: null,
+    type: GetSchoolSubscribeNewsResponse,
   })
   @Get("subscribe/news")
-  async getSchoolSubscribeNews() {
-    return await this.School.getSchoolSubscribeNews()
+  async getSchoolSubscribeNews(@Query() query: GetSchoolSubscribeNewsQuery) {
+    return await this.School.getSchoolSubscribeNews(query.school_code)
   }
 }
