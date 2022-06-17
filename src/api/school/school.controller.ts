@@ -8,6 +8,8 @@ import {
   UseGuards,
 } from "@nestjs/common"
 import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
+import { Student } from "../../common/nest/decorator/student.decorator"
+import { TStudnetPayload } from "src/types/express"
 import { StudentGuard } from "../../common/nest/guard/student.guard"
 import {
   PostSchoolSubscribeBody,
@@ -30,8 +32,14 @@ export class SchoolController {
     type: PostSchoolSubscribeResponse,
   })
   @Post("subscribe")
-  async postSchoolSubscrib(student_id, @Body() body: PostSchoolSubscribeBody) {
-    return await this.School.createSchoolSubscrib(body.school_code, student_id)
+  async postSchoolSubscrib(
+    @Student() student: TStudnetPayload,
+    @Body() body: PostSchoolSubscribeBody,
+  ) {
+    return await this.School.createSchoolSubscrib(
+      body.school_code,
+      student.student_id,
+    )
   }
 
   @ApiOperation({
