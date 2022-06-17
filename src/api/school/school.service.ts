@@ -1,11 +1,12 @@
 import { Injectable } from "@nestjs/common"
 import SubscribeRepository from "../../common/database/ddb/subscribe/subscribe.repo"
 import StudentRepository from "../../common/database/ddb/student/student.repo"
+import SchoolNewsRepository from "../../common/database/ddb/school-news/school-news.repo"
 
 @Injectable()
 export class SchoolService {
   constructor(
-    private readonly studentRepository: StudentRepository,
+    private readonly schoolNewsRepository: SchoolNewsRepository,
     private readonly subscribeRepository: SubscribeRepository,
   ) {}
 
@@ -22,8 +23,10 @@ export class SchoolService {
     )
   }
 
-  async getSchoolSubscribeNews() {
-    return "학교 구독 전달"
+  async getSchoolSubscribeNews(school_code: string) {
+    return await this.schoolNewsRepository.querySchoolNewsBySchoolCode(
+      school_code,
+    )
   }
 
   async deleteSchoolSubscribe(subscribe_id: string) {
