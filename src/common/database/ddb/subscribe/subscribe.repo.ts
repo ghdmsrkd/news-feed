@@ -2,8 +2,9 @@ import * as dynamoose from "dynamoose"
 import { SubscribeModel } from "./subscribe.model"
 import { Model } from "dynamoose/dist/Model"
 import { SubscribeSchema } from "./subscribe.schema"
-import { Injectable } from "@nestjs/common"
+import { HttpStatus, Injectable } from "@nestjs/common"
 import * as crypto from "crypto"
+import { NestError } from "../../../../common/nest/exception/nest-error"
 
 @Injectable()
 export default class SubscribeRepository {
@@ -23,6 +24,7 @@ export default class SubscribeRepository {
       .createHash("sha256")
       .update(studnet_id + school_code)
       .digest("base64")
+    await this.checkItem(newsHashId)
     return await this.dbInstance.create({
       subscribe_id: newsHashId,
       school_code: school_code,
@@ -40,6 +42,12 @@ export default class SubscribeRepository {
 
   async getSubscribeById(id: string) {
     return await this.dbInstance.get({ subscribe_id: id })
+  }
+
+  async checkItem(id: string) {
+    if (await this.getSubscribeById(id)) {
+      throw new NestError(HttpStatus.FORBIDDEN, "해당 항목이 이미 존제 합니다.")
+    }
   }
 
   async querySubscribeByStudentId(student_id: string) {
