@@ -25,15 +25,15 @@ provider:
 
 functions:
   main:
-    handler: src/handler/api.handler.apiHandler
+    handler: src/handler/api-handler.apiHandler
     events:
       - http:
           method: any
           path: /{any+}
-  stream:
-    handler: src/handler/api.handler.streamHandler
-    events:
-      - stream:
-          type: dynamodb
-          arn: arn:aws:dynamodb:ap-northeast-2:458027456759:table/CLASSTING_SCHOOL_NEWS/stream/2022-06-17T09:55:34.326
+  # stream:
+  #   handler: src/handler/api.handler.streamHandler
+  #   events:
+  #     - stream:
+  #         type: dynamodb
+  #         arn: arn:aws:dynamodb:ap-northeast-2:458027456759:table/CLASSTING_SCHOOL_NEWS/stream/2022-06-17T09:55:34.326
 
