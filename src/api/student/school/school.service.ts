@@ -1,7 +1,7 @@
-import { Injectable } from "@nestjs/common"
+import { HttpStatus, Injectable } from "@nestjs/common"
 import SubscribeRepository from "../../../common/database/ddb/subscribe/subscribe.repo"
-import StudentRepository from "../../../common/database/ddb/student/student.repo"
 import SchoolNewsRepository from "../../../common/database/ddb/school-news/school-news.repo"
+import { NestError } from "../../../common/nest/exception/nest-error"
 
 @Injectable()
 export class SchoolService {
@@ -29,7 +29,18 @@ export class SchoolService {
     )
   }
 
-  async deleteSchoolSubscribe(subscribe_id: string) {
-    return this.subscribeRepository.deleteOneSubscribe(subscribe_id)
+  async deleteSchoolSubscribe(subscribe_id: string, student_id: string) {
+    const subscribesByStudentId =
+      await this.subscribeRepository.querySubscribeByStudentId(student_id)
+    const subscribe = subscribesByStudentId.filter(
+      (subscribe) => subscribe.subscribe_id === subscribe_id,
+    )
+    if (subscribe.length < 1) {
+      throw new NestError(
+        HttpStatus.FORBIDDEN,
+        `당신에게 ${subscribe_id}의 subscribe는 없습니다.`,
+      )
+    }
+    return await this.subscribeRepository.deleteOneSubscribe(subscribe_id)
   }
 }

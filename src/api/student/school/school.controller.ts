@@ -74,8 +74,14 @@ export class SchoolController {
     type: DeleteSchoolSubscribeResponse,
   })
   @Delete("subscribe")
-  async deleteSchoolSubscribe(@Body() body: DeleteSchoolSubscribeBody) {
-    return await this.schoolService.deleteSchoolSubscribe(body.subscribe_id)
+  async deleteSchoolSubscribe(
+    @Body() body: DeleteSchoolSubscribeBody,
+    @Student() student: TStudnetPayload,
+  ) {
+    return await this.schoolService.deleteSchoolSubscribe(
+      body.subscribe_id,
+      student.student_id,
+    )
   }
 
   @ApiOperation({
