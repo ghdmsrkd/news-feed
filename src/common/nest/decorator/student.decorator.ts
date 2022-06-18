@@ -7,7 +7,7 @@ export type TStudnetPayload = {
 
 export const Student = createParamDecorator(
   async (_: any, ctx: ExecutionContext) => {
-    const request: Request = ctx.switchToHttp().getRequest()
+    const request = ctx.switchToHttp().getRequest()
 
     return request.payload.student
   },

@@ -7,7 +7,7 @@ export type TAdminPayload = {
 
 export const Admin = createParamDecorator(
   async (_: any, ctx: ExecutionContext) => {
-    const request: Request = ctx.switchToHttp().getRequest()
+    const request = ctx.switchToHttp().getRequest()
 
     return request.payload.admin
   },
