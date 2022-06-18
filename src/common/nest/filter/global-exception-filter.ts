@@ -7,6 +7,7 @@ import {
 } from "@nestjs/common"
 
 import { Request } from "express"
+import { v4 as uuidv4 } from "uuid"
 
 @Catch()
 export class GlobalExceptionsFilter implements ExceptionFilter {
@@ -25,6 +26,7 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
     console.error(error)
     try {
       response.status(status).json({
+        request_id: uuidv4(),
         result: false,
         code: status,
         message:
@@ -38,6 +40,7 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
       })
     } catch (err) {
       response.status(500).json({
+        request_id: uuidv4(),
         result: false,
         code: 500,
         message: "something wrong when server is running",
