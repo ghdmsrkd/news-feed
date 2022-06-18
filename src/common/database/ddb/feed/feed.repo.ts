@@ -3,7 +3,8 @@ import { FeedNewsModel } from "./feed.model"
 import { Model } from "dynamoose/dist/Model"
 import { FeedSchema } from "./feed.schema"
 import { Injectable } from "@nestjs/common"
-import { v4 as uuidv4 } from "uuid"
+import * as crypto from "crypto"
+import { ISchoolNews } from "../school-news/school-news.model"
 
 @Injectable()
 export default class FeedRepository {
@@ -14,8 +15,20 @@ export default class FeedRepository {
     this.dbInstance = dynamoose.model<FeedNewsModel>(tableName, FeedSchema)
   }
 
-  async createOneFeed() {
-    return
+  async createManyFeed(student_ids: Array<string>, school_news: ISchoolNews) {
+    const newFeedDocumments = student_ids.map((id) => {
+      const feed_id = crypto
+        .createHash("sha256")
+        .update(id + school_news.school_news_id)
+        .digest("base64")
+      return {
+        feed_id: feed_id,
+        student_id: id,
+        ...school_news,
+      }
+    })
+    await this.dbInstance.batchPut(newFeedDocumments)
+    return newFeedDocumments
   }
 
   async updateOneFeed() {
