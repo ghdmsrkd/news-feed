@@ -10,7 +10,7 @@ import {
 } from "@nestjs/common"
 import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
 import { Student } from "../../../common/nest/decorator/student.decorator"
-import { TStudnetPayload } from "src/types/express"
+import { TStudnetPayload } from "../../../common/nest/decorator/student.decorator"
 import { StudentGuard } from "../../../common/nest/guard/student.guard"
 import {
   PostSchoolSubscribeBody,

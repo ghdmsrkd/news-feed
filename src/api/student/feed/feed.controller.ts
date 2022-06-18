@@ -1,6 +1,6 @@
 import { Controller, Get, Query, UseGuards } from "@nestjs/common"
 import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
-import { TStudnetPayload } from "../../../types/express"
+import { TStudnetPayload } from "../../../common/nest/decorator/student.decorator"
 import { Student } from "../../../common/nest/decorator/student.decorator"
 import { StudentGuard } from "../../../common/nest/guard/student.guard"
 import { GetFeedResponse } from "./dto/get-feed.dto"
