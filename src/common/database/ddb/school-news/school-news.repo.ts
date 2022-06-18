@@ -50,6 +50,7 @@ export default class SchoolNewsRepository {
 
     //update의 set 기능이 작동을 안해서 임시 적으로 수동 검증 해준다.
     const updateParm = {
+      created_at: +new Date(),
       title: option.title ?? curentSchoolNews.title,
       context: option.context ?? curentSchoolNews.context,
     }
