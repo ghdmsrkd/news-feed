@@ -24,6 +24,7 @@ export default class FeedRepository {
       return {
         feed_id: feed_id,
         student_id: id,
+        updated: false,
         ...school_news,
       }
     })
@@ -31,8 +32,21 @@ export default class FeedRepository {
     return newFeedDocumments
   }
 
-  async updateOneFeed() {
-    return
+  async updateOneFeed(student_ids: Array<string>, school_news: ISchoolNews) {
+    const newFeedDocumments = student_ids.map((id) => {
+      const feed_id = crypto
+        .createHash("sha256")
+        .update(id + school_news.school_news_id)
+        .digest("base64")
+      return {
+        feed_id: feed_id,
+        student_id: id,
+        updated: false,
+        ...school_news,
+      }
+    })
+    await this.dbInstance.batchPut(newFeedDocumments)
+    return newFeedDocumments
   }
 
   async getFeedById(id: string) {

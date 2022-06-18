@@ -13,6 +13,10 @@ export const FeedSchema = new dynamoose.Schema({
       global: true,
     },
   },
+  updated: {
+    type: Boolean,
+    required: true,
+  },
   // school news 관련 데이터들
   school_news_id: {
     type: String,
