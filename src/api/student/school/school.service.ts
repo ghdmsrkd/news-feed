@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common"
-import SubscribeRepository from "../../common/database/ddb/subscribe/subscribe.repo"
-import StudentRepository from "../../common/database/ddb/student/student.repo"
-import SchoolNewsRepository from "../../common/database/ddb/school-news/school-news.repo"
+import SubscribeRepository from "../../../common/database/ddb/subscribe/subscribe.repo"
+import StudentRepository from "../../../common/database/ddb/student/student.repo"
+import SchoolNewsRepository from "../../../common/database/ddb/school-news/school-news.repo"
 
 @Injectable()
 export class SchoolService {

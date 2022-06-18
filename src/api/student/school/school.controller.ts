@@ -9,9 +9,9 @@ import {
   UseGuards,
 } from "@nestjs/common"
 import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
-import { Student } from "../../common/nest/decorator/student.decorator"
+import { Student } from "../../../common/nest/decorator/student.decorator"
 import { TStudnetPayload } from "src/types/express"
-import { StudentGuard } from "../../common/nest/guard/student.guard"
+import { StudentGuard } from "../../../common/nest/guard/student.guard"
 import {
   PostSchoolSubscribeBody,
   PostSchoolSubscribeResponse,
@@ -28,8 +28,8 @@ import {
 } from "./dto/get-school-subscribe-news.dto"
 
 @UseGuards(StudentGuard)
-@ApiTags("school 관련 API")
-@Controller("school")
+@ApiTags("student school 관련 API")
+@Controller("student/school")
 export class SchoolController {
   constructor(private readonly School: SchoolService) {}
 
