@@ -6,12 +6,6 @@ export class PostAdminSchoolBody {
     type: String,
   })
   @IsString()
-  admin_id: string
-
-  @ApiProperty({
-    type: String,
-  })
-  @IsString()
   location: string
 
   @ApiProperty({

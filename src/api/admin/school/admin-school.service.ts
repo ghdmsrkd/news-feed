@@ -29,8 +29,8 @@ export class AdminSchoolService {
     return this.schoolNewsRepository.deleteOneSchoolNews(school_news_id)
   }
 
-  async updateSchoolNews(id: string, option: TUpdateOption) {
-    return this.schoolNewsRepository.updateOneSchoolNews(id, option)
+  async updateSchoolNews(school_news_id: string, option: TUpdateOption) {
+    return this.schoolNewsRepository.updateOneSchoolNews(school_news_id, option)
   }
 
   // 하나의 학교 페이지를 생성합니다.

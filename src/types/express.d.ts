@@ -1,12 +1,7 @@
+import { TAdminPayload } from "../common/nest/decorator/admin.decorator"
+import { TStudnetPayload } from "../common/nest/decorator/student.decorator"
+
 export {}
-
-export type TStudnetPayload = {
-  student_id: string
-}
-
-export type TAdminPayload = {
-  admin_id: string
-}
 
 declare global {
   namespace Express {

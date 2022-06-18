@@ -7,6 +7,10 @@ import {
   UseGuards,
 } from "@nestjs/common"
 import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
+import {
+  Admin,
+  TAdminPayload,
+} from "../../../common/nest/decorator/admin.decorator"
 import { AdminGuard } from "../../../common/nest/guard/admin.guard"
 
 import { AdminSchoolService } from "./admin-school.service"
@@ -43,9 +47,12 @@ export class AdminSchoolController {
     type: PostAdminSchoolResponse,
   })
   @Post("")
-  async postAdminSchool(@Body() body: PostAdminSchoolBody) {
+  async postAdminSchool(
+    @Body() body: PostAdminSchoolBody,
+    @Admin() admin: TAdminPayload,
+  ) {
     return await this.adminSchool.createSchool(
-      body.admin_id,
+      admin.admin_id,
       body.location,
       body.name,
     )
