@@ -1,4 +1,4 @@
-export const mockEvent = {
+export const insertMockEvent = {
   Records: [
     {
       eventID: "9b353fc61e53755b33c0b5ed592da994",

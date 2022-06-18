@@ -1,13 +1,13 @@
 import { NestFactory } from "@nestjs/core"
 import { StreamModule } from "../stream/stream.module"
 import { TaskService } from "../stream/task/task.service"
-import { mockEvent } from "../stream/mock-event"
+import { insertMockEvent, modifyMockEvent } from "../stream/mock-event"
 import * as AWS from "aws-sdk"
 import { ISchoolNews } from "../common/database/ddb/school-news/school-news.model"
 
 exports.streamHandler = async (event) => {
   if (process.env.NODE_ENV === "dev") {
-    event = mockEvent
+    event = insertMockEvent
   }
 
   const app = await NestFactory.createApplicationContext(StreamModule)
@@ -23,9 +23,11 @@ exports.streamHandler = async (event) => {
     if (record.eventName === "INSERT") {
       // 새로운 학교 뉴스가 생성 되었을 때
       const insertResult = await tasksService.insertFeedEachStudents(schoolNews)
+      console.log(insertResult)
     } else if (record.eventName === "MODIFY") {
       // 기존 학교 뉴스가 수정 되어 을 때
       const updateResult = await tasksService.updateFeedEachStudents(schoolNews)
+      console.log(updateResult)
     } else {
       // 학교 뉴스가 삭제 되었을 때
       continue
@@ -35,6 +37,5 @@ exports.streamHandler = async (event) => {
 
 const convertNewImageToSchoolNews = (newImage: any) => {
   const unmarshalled = AWS.DynamoDB.Converter.unmarshall(newImage)
-  console.log(unmarshalled)
   return unmarshalled
 }

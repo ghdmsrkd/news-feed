@@ -30,6 +30,21 @@ export class TaskService {
   }
 
   async updateFeedEachStudents(school_news: ISchoolNews) {
-    return
+    // 학교기준 구독 리스트
+    const schoolSubscribes =
+      await this.subscribeRepository.querySubscribeBySChoolCode(
+        school_news.school_code,
+      )
+    console.log(schoolSubscribes)
+    // 구독 리스트에서 학생 아이디들
+    const subscribedStudentIds = schoolSubscribes.map(
+      (subscribe) => subscribe.student_id,
+    )
+    console.log(subscribedStudentIds)
+    // 구독한 학생들의 feed 수정
+    return await this.feedRepository.updateOneFeed(
+      subscribedStudentIds,
+      school_news,
+    )
   }
 }

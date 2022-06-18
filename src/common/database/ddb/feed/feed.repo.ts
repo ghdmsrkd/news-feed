@@ -41,7 +41,7 @@ export default class FeedRepository {
       return {
         feed_id: feed_id,
         student_id: id,
-        updated: false,
+        updated: true,
         ...school_news,
       }
     })
