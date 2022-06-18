@@ -31,7 +31,7 @@ import {
 @ApiTags("student/school 관련 API")
 @Controller("student/school")
 export class SchoolController {
-  constructor(private readonly School: SchoolService) {}
+  constructor(private readonly schoolService: SchoolService) {}
 
   @ApiOperation({
     summary: "학교 구독",
@@ -46,7 +46,7 @@ export class SchoolController {
     @Student() student: TStudnetPayload,
     @Body() body: PostSchoolSubscribeBody,
   ) {
-    return await this.School.createSchoolSubscribe(
+    return await this.schoolService.createSchoolSubscribe(
       body.school_code,
       student.student_id,
     )
@@ -62,7 +62,7 @@ export class SchoolController {
   })
   @Get("subscribe")
   async getSchoolSubscribe(@Student() student: TStudnetPayload) {
-    return await this.School.getSchoolSubscribe(student.student_id)
+    return await this.schoolService.getSchoolSubscribe(student.student_id)
   }
 
   @ApiOperation({
@@ -75,7 +75,7 @@ export class SchoolController {
   })
   @Delete("subscribe")
   async deleteSchoolSubscribe(@Body() body: DeleteSchoolSubscribeBody) {
-    return await this.School.deleteSchoolSubscribe(body.subscribe_id)
+    return await this.schoolService.deleteSchoolSubscribe(body.subscribe_id)
   }
 
   @ApiOperation({
@@ -88,6 +88,6 @@ export class SchoolController {
   })
   @Get("subscribe/news")
   async getSchoolSubscribeNews(@Query() query: GetSchoolSubscribeNewsQuery) {
-    return await this.School.getSchoolSubscribeNews(query.school_code)
+    return await this.schoolService.getSchoolSubscribeNews(query.school_code)
   }
 }
