@@ -1,15 +1,11 @@
 import { Injectable } from "@nestjs/common"
-import SubscribeRepository from "../../../common/database/ddb/subscribe/subscribe.repo"
-import SchoolNewsRepository from "../../../common/database/ddb/school-news/school-news.repo"
+import FeedRepository from "../../../common/database/ddb/feed/feed.repo"
 
 @Injectable()
 export class FeedService {
-  constructor(
-    private readonly schoolNewsRepository: SchoolNewsRepository,
-    private readonly subscribeRepository: SubscribeRepository,
-  ) {}
+  constructor(private readonly feedRepository: FeedRepository) {}
 
-  getFeed() {
-    throw new Error("Method not implemented.")
+  async getFeed(student_id: string) {
+    return this.feedRepository.queryFeedByStudentId(student_id)
   }
 }

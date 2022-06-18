@@ -1,7 +1,9 @@
 import { Controller, Get, Query, UseGuards } from "@nestjs/common"
 import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
-
+import { TStudnetPayload } from "../../../types/express"
+import { Student } from "../../../common/nest/decorator/student.decorator"
 import { StudentGuard } from "../../../common/nest/guard/student.guard"
+import { GetFeedResponse } from "./dto/get-feed.dto"
 
 import { FeedService } from "./feed.service"
 
@@ -17,10 +19,10 @@ export class FeedController {
   })
   @ApiOkResponse({
     description: "완료",
-    type: null,
+    type: GetFeedResponse,
   })
   @Get("")
-  async getFeed(@Query() query) {
-    return await this.feedService.getFeed()
+  async getFeed(@Student() student: TStudnetPayload) {
+    return await this.feedService.getFeed(student.student_id)
   }
 }
