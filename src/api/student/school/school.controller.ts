@@ -28,7 +28,7 @@ import {
 } from "./dto/get-school-subscribe-news.dto"
 
 @UseGuards(StudentGuard)
-@ApiTags("student school 관련 API")
+@ApiTags("student/school 관련 API")
 @Controller("student/school")
 export class SchoolController {
   constructor(private readonly School: SchoolService) {}
