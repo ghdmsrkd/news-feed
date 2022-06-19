@@ -80,5 +80,21 @@ describe("Student/School/Subscribe (e2e)", () => {
     })
   })
 
+  describe("DELETE /student/school/subscribe/news", () => {
+    const baseRouter = "/student/school/subscribe"
+
+    it("/ (DELETE) 200", () => {
+      const testBody = { subscribe_id: testSubscribeId }
+      return testRequest
+        .delete(baseRouter)
+        .send(testBody)
+        .set("Authorization", `Bearer ${studentToken}`)
+        .then((res) => {
+          console.log(res.error)
+          expect(res.statusCode).toBe(200)
+        })
+    })
+  })
+
   afterAll(async () => {})
 })
