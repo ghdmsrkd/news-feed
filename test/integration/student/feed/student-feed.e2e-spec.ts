@@ -5,7 +5,7 @@ import { getTestModule, getTestRequest } from "../../../util/test-request"
 describe("Student/Feed (e2e)", () => {
   let testRequest: request.SuperTest<request.Test>
   let testModule: INestApplication
-  const studentToken = "student2"
+  const studentToken = "studentTest"
 
   beforeAll(async () => {
     testModule = await getTestModule()
