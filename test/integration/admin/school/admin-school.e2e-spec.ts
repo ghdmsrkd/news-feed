@@ -4,7 +4,7 @@ import * as request from "supertest"
 import { getTestModule, getTestRequest } from "../../../util/test-request"
 import SchoolNewsRepository from "../../../../src/common/database/ddb/school-news/school-news.repo"
 
-describe("AppController (e2e)", () => {
+describe("Admin/School (e2e)", () => {
   let testRequest: request.SuperTest<request.Test>
   let testModule: INestApplication
   const adminToken = "admin4"
@@ -86,7 +86,6 @@ describe("AppController (e2e)", () => {
         .send(testBody)
         .then((res) => {
           expect(res.statusCode).toBe(200)
-          console.log(res)
         })
     })
   })

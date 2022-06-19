@@ -18,12 +18,16 @@ export default class SubscribeRepository {
     )
   }
 
-  async createOneSubscribe(school_code: string, studnet_id: string) {
-    // id가 랜덤으로 들오가져 중복된 구독 내용이 들어감, studnet_id + school_code를 해시 한 값을 id 로 사용
-    const newsHashId = crypto
+  createNewHashId(school_code: string, studnet_id: string) {
+    return crypto
       .createHash("sha256")
       .update(studnet_id + school_code)
       .digest("base64")
+  }
+
+  async createOneSubscribe(school_code: string, studnet_id: string) {
+    // id가 랜덤으로 들오가져 중복된 구독 내용이 들어감, studnet_id + school_code를 해시 한 값을 id 로 사용
+    const newsHashId = this.createNewHashId(school_code, studnet_id)
     await this.checkItem(newsHashId)
     return await this.dbInstance.create({
       subscribe_id: newsHashId,
