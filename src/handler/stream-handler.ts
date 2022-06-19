@@ -2,9 +2,11 @@ import { NestFactory } from "@nestjs/core"
 import { StreamModule } from "../stream/stream.module"
 import { TaskService } from "../stream/task/task.service"
 import { insertMockEvent, modifyMockEvent } from "../stream/mock-event"
-import * as AWS from "aws-sdk"
 import { ISchoolNews } from "../common/database/ddb/school-news/school-news.model"
-import { StreamEventName } from "../common/database/stream"
+import {
+  convertNewImageToSchoolNews,
+  StreamEventName,
+} from "../common/database/stream"
 
 exports.streamHandler = async (event) => {
   if (process.env.NODE_ENV === "dev") {
@@ -34,9 +36,4 @@ exports.streamHandler = async (event) => {
       continue
     }
   }
-}
-
-const convertNewImageToSchoolNews = (newImage: any) => {
-  const unmarshalled = AWS.DynamoDB.Converter.unmarshall(newImage)
-  return unmarshalled
 }
