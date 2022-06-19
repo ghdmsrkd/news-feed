@@ -21,7 +21,6 @@ export class AdminSchoolService {
         title,
         context,
       )
-    console.log(createSchoolNewsResult)
     return createSchoolNewsResult
   }
 
