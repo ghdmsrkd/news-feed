@@ -7,7 +7,7 @@ import SchoolNewsRepository from "../../../../src/common/database/ddb/school-new
 describe("Admin/School (e2e)", () => {
   let testRequest: request.SuperTest<request.Test>
   let testModule: INestApplication
-  const adminToken = "admin4"
+  const adminToken = "adminTest"
   let testSchoolNewsId: string
 
   beforeAll(async () => {

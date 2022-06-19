@@ -6,7 +6,7 @@ import SubscribeRepository from "../../../../../src/common/database/ddb/subscrib
 describe("Student/School/Subscribe (e2e)", () => {
   let testRequest: request.SuperTest<request.Test>
   let testModule: INestApplication
-  const studentToken = "student2"
+  const studentToken = "studentTest"
   let testSubscribeId: string
 
   beforeAll(async () => {
