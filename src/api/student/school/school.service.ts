@@ -23,7 +23,19 @@ export class SchoolService {
     )
   }
 
-  async getSchoolSubscribeNews(school_code: string) {
+  async getSchoolSubscribeNews(school_code: string, student_id: string) {
+    const subscribedList =
+      await this.subscribeRepository.querySubscribeByStudentId(student_id)
+    const filteredSubscribedList = subscribedList.filter(
+      (subscribe) => subscribe.school_code === school_code,
+    )
+    // 요청한 학교를 구독 하지 않았을 때
+    if (filteredSubscribedList.length < 1) {
+      throw new NestError(
+        HttpStatus.FORBIDDEN,
+        "구독한 학교 페이지가 아닙니다.",
+      )
+    }
     return await this.schoolNewsRepository.querySchoolNewsBySchoolCode(
       school_code,
     )

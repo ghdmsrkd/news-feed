@@ -99,7 +99,13 @@ export class SchoolController {
     type: GetSchoolSubscribeNewsResponse,
   })
   @Get("subscribe/news")
-  async getSchoolSubscribeNews(@Query() query: GetSchoolSubscribeNewsQuery) {
-    return await this.schoolService.getSchoolSubscribeNews(query.school_code)
+  async getSchoolSubscribeNews(
+    @Query() query: GetSchoolSubscribeNewsQuery,
+    @Student() student: TStudnetPayload,
+  ) {
+    return await this.schoolService.getSchoolSubscribeNews(
+      query.school_code,
+      student.student_id,
+    )
   }
 }
