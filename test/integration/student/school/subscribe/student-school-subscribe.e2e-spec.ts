@@ -32,7 +32,6 @@ describe("Student/School/Subscribe (e2e)", () => {
         .set("Authorization", `Bearer ${studentToken}`)
         .send(testBody)
         .then((res) => {
-          console.log(res.error)
           expect(res.statusCode).toBe(201)
         })
     })
@@ -74,7 +73,6 @@ describe("Student/School/Subscribe (e2e)", () => {
         .query(testQuery)
         .set("Authorization", `Bearer ${studentToken}`)
         .then((res) => {
-          console.log(res.error)
           expect(res.statusCode).toBe(200)
         })
     })
@@ -90,7 +88,6 @@ describe("Student/School/Subscribe (e2e)", () => {
         .send(testBody)
         .set("Authorization", `Bearer ${studentToken}`)
         .then((res) => {
-          console.log(res.error)
           expect(res.statusCode).toBe(200)
         })
     })
