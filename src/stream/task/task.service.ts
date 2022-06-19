@@ -22,6 +22,9 @@ export class TaskService {
     const subscribedStudentIds = schoolSubscribes.map(
       (subscribe) => subscribe.student_id,
     )
+    if (subscribedStudentIds.length < 1) {
+      return null
+    }
     // 구독한 학생들의 feed 생성
     return await this.feedRepository.createManyFeed(
       subscribedStudentIds,
@@ -39,6 +42,9 @@ export class TaskService {
     const subscribedStudentIds = schoolSubscribes.map(
       (subscribe) => subscribe.student_id,
     )
+    if (subscribedStudentIds.length < 1) {
+      return null
+    }
     // 구독한 학생들의 feed 수정
     return await this.feedRepository.updateOneFeed(
       subscribedStudentIds,

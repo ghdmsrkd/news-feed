@@ -35,5 +35,6 @@ functions:
     events:
       - stream:
           type: dynamodb
-          arn: arn:aws:dynamodb:ap-northeast-2:458027456759:table/CLASSTING_SCHOOL_NEWS/stream/2022-06-17T09:55:34.326
+          arn: arn:aws:dynamodb:ap-northeast-2:458027456759:table/CLASSTING_SCHOOL_NEWS/stream/2022-06-19T13:03:27.040
+          maximumRetryAttempts: 2
 

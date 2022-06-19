@@ -16,6 +16,7 @@ exports.streamHandler = async (event) => {
   const app = await NestFactory.createApplicationContext(StreamModule)
   const tasksService = app.get(TaskService)
 
+  console.log(JSON.stringify(event.Records))
   for (const record of event.Records) {
     console.log(record)
 
