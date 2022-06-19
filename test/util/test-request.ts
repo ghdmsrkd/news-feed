@@ -24,3 +24,19 @@ export const getTestRequest = async () => {
   await app.init()
   return request(app.getHttpServer())
 }
+
+export const getTestModule = async () => {
+  const moduleFixture: TestingModule = await Test.createTestingModule({
+    imports: [AppModule],
+  }).compile()
+
+  const app: INestApplication = moduleFixture.createNestApplication()
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  )
+  return await app.init()
+}

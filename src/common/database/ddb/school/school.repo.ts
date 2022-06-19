@@ -25,6 +25,10 @@ export default class SchoolRepository {
     })
   }
 
+  async deleteSchoolByCode(code: string) {
+    return await this.dbInstance.delete({ school_code: code })
+  }
+
   async getSchoolByCode(code: string) {
     return await this.dbInstance.get({ school_code: code })
   }
