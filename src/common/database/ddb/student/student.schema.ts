@@ -1,12 +1,12 @@
 import * as dynamoose from "dynamoose"
 
-export const AdminSchema = new dynamoose.Schema({
-  admin_id: {
+export const StudentSchema = new dynamoose.Schema({
+  student_id: {
     type: String,
     hashKey: true,
     required: true,
   },
-  admin_name: {
+  name: {
     type: String,
     required: true,
   },

@@ -1,6 +1,6 @@
 import * as dynamoose from "dynamoose"
 
-const ddb = new dynamoose.aws.sdk.DynamoDB({
+export const ddb = new dynamoose.aws.sdk.DynamoDB({
   accessKeyId: process.env.accessKeyId,
   secretAccessKey: process.env.secretAccessKey,
   region: "ap-northeast-2",

@@ -1,7 +1,43 @@
-import { Controller, Delete, Patch, Post } from "@nestjs/common"
-import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
-import { AdminSchoolService } from "./admin-school.service"
+import {
+  Body,
+  Controller,
+  Delete,
+  Patch,
+  Post,
+  UseGuards,
+} from "@nestjs/common"
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from "@nestjs/swagger"
+import {
+  Admin,
+  TAdminPayload,
+} from "../../../common/nest/decorator/admin.decorator"
+import { AdminGuard } from "../../../common/nest/guard/admin.guard"
 
+import { AdminSchoolService } from "./admin-school.service"
+import {
+  DeleteAdminSchoolNewsBody,
+  DeleteAdminSchoolNewsResponse,
+} from "./dto/delete-admin-school-news.dto"
+import {
+  PatchAdminSchoolNewsBody,
+  PatchAdminSchoolNewsResponse,
+} from "./dto/patch-admin-school-news.dto"
+import {
+  PostAdminSchoolNewsBody,
+  PostAdminSchoolNewsResponse,
+} from "./dto/post-admin-school-news.dto"
+import {
+  PostAdminSchoolBody,
+  PostAdminSchoolResponse,
+} from "./dto/post-admin-school.dto"
+
+@UseGuards(AdminGuard)
+@ApiBearerAuth("Admin Token")
 @ApiTags("admin/school 관련 API")
 @Controller("admin/school")
 export class AdminSchoolController {
@@ -12,13 +48,20 @@ export class AdminSchoolController {
     description:
       "관리자가 지역과, 학교명을 받아 하나의 학교 페이지 생성합니다.",
   })
-  @ApiCreatedResponse({
+  @ApiOkResponse({
     description: "완료",
-    type: null,
+    type: PostAdminSchoolResponse,
   })
   @Post("")
-  async postAdminSchool() {
-    return await this.adminSchool.createSchool()
+  async postAdminSchool(
+    @Body() body: PostAdminSchoolBody,
+    @Admin() admin: TAdminPayload,
+  ) {
+    return await this.adminSchool.createSchool(
+      admin.admin_id,
+      body.location,
+      body.name,
+    )
   }
 
   @ApiOperation({
@@ -26,26 +69,30 @@ export class AdminSchoolController {
     description:
       "관리자가 학교 code와 소식 정보를 받아 하나의 학교 소식을 생성합니다.",
   })
-  @ApiCreatedResponse({
+  @ApiOkResponse({
     description: "완료",
-    type: null,
+    type: PostAdminSchoolNewsResponse,
   })
   @Post("news")
-  async postAdminSchoolNews() {
-    return await this.adminSchool.createSchoolNews()
+  async postAdminSchoolNews(@Body() body: PostAdminSchoolNewsBody) {
+    return await this.adminSchool.createSchoolNews(
+      body.school_code,
+      body.title,
+      body.context,
+    )
   }
 
   @ApiOperation({
     summary: "관리자가 하나의 학교 소식을 삭제",
     description: "관리자가 소식 id를 받아 하나의 학교 소식을 삭제합니다.",
   })
-  @ApiCreatedResponse({
+  @ApiOkResponse({
     description: "완료",
-    type: null,
+    type: DeleteAdminSchoolNewsResponse,
   })
   @Delete("news")
-  async deleteAdminSchoolNews() {
-    return await this.adminSchool.deleteSchoolNews()
+  async deleteAdminSchoolNews(@Body() body: DeleteAdminSchoolNewsBody) {
+    return await this.adminSchool.deleteSchoolNews(body.school_news_id)
   }
 
   @ApiOperation({
@@ -53,12 +100,15 @@ export class AdminSchoolController {
     description:
       "관리자가 소식 id, 수정 내용을 받아 하나의 학교 소식을 수정합니다.",
   })
-  @ApiCreatedResponse({
+  @ApiOkResponse({
     description: "완료",
-    type: null,
+    type: PatchAdminSchoolNewsResponse,
   })
   @Patch("news")
-  async patchAdminSchoolNews() {
-    return await this.adminSchool.updateSchoolNews()
+  async patchAdminSchoolNews(@Body() body: PatchAdminSchoolNewsBody) {
+    return await this.adminSchool.updateSchoolNews(body.school_news_id, {
+      title: body.title,
+      context: body.context,
+    })
   }
 }

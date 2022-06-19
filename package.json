@@ -13,7 +13,11 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "set NOED_ENV=test && jest --config ./test/jest-e2e.json",
+    "remove:build": "rm -rf .build && rm -rf .serverless",
+    "dev": "yarn remove:build && NODE_ENV=dev sls offline start --stage dev -c ./serverless.dev.yaml",
+    "invoke:stream": "NODE_ENV=dev sls invoke local --function stream -c ./serverless.dev.yaml",
+    "deploy:production": "yarn remove:build && NODE_ENV=production sls deploy --stage prod -c ./serverless.prod.yaml"
   },
   "dependencies": {
     "@nestjs/common": "^8.4.7",
@@ -22,13 +26,17 @@
     "@nestjs/swagger": "^5.2.1",
     "aws-lambda": "^1.0.7",
     "aws-serverless-express": "^3.4.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2",
+    "dotenv": "^16.0.1",
     "dynamoose": "^2.8.5",
     "express": "^4.18.1",
     "plugin": "^0.3.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.5.5",
-    "swagger-ui-express": "^4.4.0"
+    "swagger-ui-express": "^4.4.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.2.6",
@@ -38,6 +46,7 @@
     "@types/jest": "^28.1.1",
     "@types/node": "^17.0.42",
     "@types/supertest": "^2.0.12",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",
     "eslint": "^8.17.0",
