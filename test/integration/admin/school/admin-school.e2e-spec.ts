@@ -2,6 +2,7 @@ import { INestApplication } from "@nestjs/common"
 import SchoolRepository from "../../../../src/common/database/ddb/school/school.repo"
 import * as request from "supertest"
 import { getTestModule, getTestRequest } from "../../../util/test-request"
+import SchoolNewsRepository from "../../../../src/common/database/ddb/school-news/school-news.repo"
 
 describe("AppController (e2e)", () => {
   let testRequest: request.SuperTest<request.Test>
@@ -10,8 +11,16 @@ describe("AppController (e2e)", () => {
   let testSchoolNewsId: string
 
   beforeAll(async () => {
-    testRequest = await getTestRequest()
     testModule = await getTestModule()
+    const mockSchoolNews = await testModule
+      .get(SchoolNewsRepository)
+      .createOneSchoolNews(
+        "테스트-테스트학교",
+        "테스트학교title",
+        "테스트학교context",
+      )
+    testRequest = await getTestRequest()
+    testSchoolNewsId = mockSchoolNews.school_news_id
   })
 
   describe("POST /admin/school", () => {
@@ -19,7 +28,7 @@ describe("AppController (e2e)", () => {
 
     const testBody = {
       location: "테스트",
-      name: "테스트대학교",
+      name: "테스트학교",
     }
 
     it("/ (POST) 201", () => {
@@ -27,12 +36,8 @@ describe("AppController (e2e)", () => {
         .post(baseRouter)
         .set("Authorization", `Bearer ${adminToken}`)
         .send(testBody)
-        .then(async (res) => {
+        .then((res) => {
           expect(res.statusCode).toBe(201)
-          const result = await testModule
-            .get(SchoolRepository)
-            .deleteSchoolByCode(`${testBody.location}-${testBody.name}`)
-          console.log(result)
         })
     })
 
@@ -51,9 +56,9 @@ describe("AppController (e2e)", () => {
     const baseRouter = "/admin/school/news"
 
     const testBody = {
-      school_code: "테스트-테스트대학교",
-      title: "테스트대학교title",
-      context: "테스트대학교context",
+      school_code: "테스트-테스트학교",
+      title: "테스트학교title",
+      context: "테스트학교context",
     }
 
     it("/ (POST) 202", () => {
@@ -63,22 +68,18 @@ describe("AppController (e2e)", () => {
         .send(testBody)
         .then((res) => {
           expect(res.statusCode).toBe(201)
-          // 새로 생성한 학교 뉴스 아이디 할당
-          testSchoolNewsId = res.body.school_news_id
-          console.log(testSchoolNewsId)
         })
     })
   })
 
   describe("PATCH /admin/school/news", () => {
     const baseRouter = "/admin/school/news"
-    console.log(testSchoolNewsId)
-    const testBody = {
-      school_news_id: testSchoolNewsId,
-      context: "테스트대학교context의 내용이 변경되었어요!!!",
-    }
 
     it("/ (PATCH) 202", () => {
+      const testBody = {
+        school_news_id: testSchoolNewsId,
+        context: "테스트학교context의 내용이 변경되었어요!!!",
+      }
       return testRequest
         .patch(baseRouter)
         .set("Authorization", `Bearer ${adminToken}`)
@@ -93,11 +94,10 @@ describe("AppController (e2e)", () => {
   describe("DELTE /admin/school/news", () => {
     const baseRouter = "/admin/school/news"
 
-    const testBody = {
-      school_news_id: testSchoolNewsId,
-    }
-
     it("/ (DELTE) 202", () => {
+      const testBody = {
+        school_news_id: testSchoolNewsId,
+      }
       return testRequest
         .delete(baseRouter)
         .set("Authorization", `Bearer ${adminToken}`)
@@ -106,5 +106,10 @@ describe("AppController (e2e)", () => {
           expect(res.statusCode).toBe(200)
         })
     })
+  })
+  afterAll(async () => {
+    await testModule
+      .get(SchoolRepository)
+      .deleteSchoolByCode(`테스트-테스트학교`)
   })
 })
