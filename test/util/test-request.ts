@@ -3,6 +3,11 @@ import { Test, TestingModule } from "@nestjs/testing"
 import * as request from "supertest"
 import { AppModule } from "../../src/api/app.module"
 
+import * as dynamoose from "dynamoose"
+import { ddb } from "../../src/common/database/ddb"
+
+dynamoose.aws.ddb.set(ddb)
+
 export const getTestRequest = async () => {
   const moduleFixture: TestingModule = await Test.createTestingModule({
     imports: [AppModule],

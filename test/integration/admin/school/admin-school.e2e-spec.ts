@@ -1,16 +1,9 @@
 import * as request from "supertest"
-import * as dotenv from "dotenv"
-dotenv.config({ path: "./test.env" })
-import * as dynamoose from "dynamoose"
-import { ddb } from "../src/common/database/ddb"
-import { getTestRequest } from "./util/test-request"
-
-dynamoose.aws.ddb.set(ddb)
+import { getTestRequest } from "../../../util/test-request"
 
 describe("AppController (e2e)", () => {
   let testRequest: request.SuperTest<request.Test>
   const adminToken = "admin4"
-  const studentToken = "student2"
 
   beforeAll(async () => {
     testRequest = await getTestRequest()
