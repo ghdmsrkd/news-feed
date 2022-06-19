@@ -1,5 +1,10 @@
 import { Controller, Get, Query, UseGuards } from "@nestjs/common"
-import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from "@nestjs/swagger"
 import { TStudnetPayload } from "../../../common/nest/decorator/student.decorator"
 import { Student } from "../../../common/nest/decorator/student.decorator"
 import { StudentGuard } from "../../../common/nest/guard/student.guard"
@@ -8,6 +13,7 @@ import { GetFeedResponse } from "./dto/get-feed.dto"
 import { FeedService } from "./feed.service"
 
 @UseGuards(StudentGuard)
+@ApiBearerAuth("Student Token")
 @ApiTags("student/feed 관련 API")
 @Controller("student/feed")
 export class FeedController {

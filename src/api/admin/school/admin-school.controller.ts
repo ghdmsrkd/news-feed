@@ -6,7 +6,12 @@ import {
   Post,
   UseGuards,
 } from "@nestjs/common"
-import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger"
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from "@nestjs/swagger"
 import {
   Admin,
   TAdminPayload,
@@ -32,6 +37,7 @@ import {
 } from "./dto/post-admin-school.dto"
 
 @UseGuards(AdminGuard)
+@ApiBearerAuth("Admin Token")
 @ApiTags("admin/school 관련 API")
 @Controller("admin/school")
 export class AdminSchoolController {
