@@ -21,7 +21,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm i serverless -g
-    - run: serverless config credentials --provider aws --profile classting-iam --key ${{ deploy.AWS_ACCESS_KEY_ID }} --secret ${{ deploy.AWS_SECRET_ACCESS_KEY }}
+    - run: serverless config credentials --provider aws --profile classting-iam --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - run: npm install -g yarn
     - run: yarn
     - run: yarn deploy:production
@@ -31,5 +31,5 @@ jobs:
         args: deploy
       env:
         NODE_ENV: production
-        AWS_ACCESS_KEY_ID: ${{ deploy.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ deploy.AWS_SECRET_ACCESS_KEY }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
