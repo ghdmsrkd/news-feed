@@ -24,12 +24,5 @@ jobs:
     - run: serverless config credentials --provider aws --profile classting-iam --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - run: npm install -g yarn
     - run: yarn
+    - run: yarn 
     - run: yarn deploy:production
-    - name: serverless deploy
-      uses: serverless/github-action@v3.1
-      with:
-        args: deploy
-      env:
-        NODE_ENV: production
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
