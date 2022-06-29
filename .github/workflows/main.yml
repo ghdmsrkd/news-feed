@@ -24,5 +24,9 @@ jobs:
     - run: serverless config credentials --provider aws --profile classting-iam --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - run: npm install -g yarn
     - run: yarn
-    - run: yarn 
+    - run: >
+        export NODE_ENV=test
+        export accessKeyId=${{ secrets.AWS_ACCESS_KEY_ID }}
+        export secretAccessKey=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    - run: yarn test:e2e
     - run: yarn deploy:production
