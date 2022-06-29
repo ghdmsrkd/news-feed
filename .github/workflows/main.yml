@@ -20,7 +20,12 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
+    - name: AWS CLI
+      # You may pin to the exact commit or the version.
+      # uses: ItsKarma/aws-cli@820b0dff33bbd9c699e98194864788bbc69f8a58
+      uses: ItsKarma/aws-cli@v1.70.0
     - run: npm i serverless -g
+    - run: serverless config credentials --provider aws --profile classting-iam --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - run: npm install -g yarn
     - run: yarn
     - run: yarn deploy:production
@@ -29,7 +34,6 @@ jobs:
       with:
         args: deploy
       env:
-        SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
-        # or if using AWS credentials directly
-        # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        NODE_ENV: production
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
