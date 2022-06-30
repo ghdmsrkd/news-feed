@@ -2,6 +2,9 @@ import { ApiProperty } from "@nestjs/swagger"
 import { IsString } from "class-validator"
 
 export class DeleteAdminSchoolNewsBody {
+  @ApiProperty({
+    type: String,
+  })
   @IsString()
   school_news_id: string
 }
