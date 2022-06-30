@@ -2,8 +2,9 @@ import * as dynamoose from "dynamoose"
 import { SchoolNewsModel } from "./school-news.model"
 import { Model } from "dynamoose/dist/Model"
 import { SchoolNewsSchema } from "./school-news.schema"
-import { Injectable } from "@nestjs/common"
+import { HttpStatus, Injectable } from "@nestjs/common"
 import { v4 as uuidv4 } from "uuid"
+import { NestError } from "../../../../common/nest/exception/nest-error"
 
 export type TUpdateOption = {
   title?: string
@@ -47,6 +48,13 @@ export default class SchoolNewsRepository {
 
   async updateOneSchoolNews(id: string, option: TUpdateOption) {
     const curentSchoolNews = await this.getSchoolNewsById(id)
+
+    if (!curentSchoolNews) {
+      throw new NestError(
+        HttpStatus.FORBIDDEN,
+        "해당 id로 news를 찾을 수 없습니다.",
+      )
+    }
 
     //update의 set 기능이 작동을 안해서 임시 적으로 수동 검증 해준다.
     const updateParm = {
